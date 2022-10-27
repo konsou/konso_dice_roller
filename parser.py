@@ -6,6 +6,7 @@ from roll import Roll
 
 
 def parse_input(input_string: str) -> Roll:
+    input_string = input_string.lower().strip()
     dice, constant = _parse_constant(input_string)
     number_of_dice, dice_sides = dice.split("d")
     return Roll(

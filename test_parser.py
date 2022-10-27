@@ -33,6 +33,12 @@ class Test(TestCase):
         assert result.dice_sides == 10
         assert result.bonus == 0
 
+    def test_parse_input_10D10(self):
+        result = parse_input("10D10")
+        assert result.number_of_dice == 10
+        assert result.dice_sides == 10
+        assert result.bonus == 0
+
     def test_parse_input_1d6plus1(self):
         result = parse_input("1d6+1")
         assert result.number_of_dice == 1
@@ -50,3 +56,9 @@ class Test(TestCase):
         assert result.number_of_dice == 1
         assert result.dice_sides == 6
         assert result.bonus == -1
+
+    def test_parse_input_5d20minus4(self):
+        result = parse_input("5d20-4")
+        assert result.number_of_dice == 5
+        assert result.dice_sides == 20
+        assert result.bonus == -4
