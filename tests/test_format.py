@@ -1,6 +1,11 @@
 from unittest.mock import MagicMock
 
-from src.format import roll_as_text, as_float_if_has_decimals
+from src.format import (
+    roll_as_text,
+    as_float_if_has_decimals,
+    number_as_string_with_sign,
+    number_as_string_with_spaces_around_sign,
+)
 
 
 class MockRoll(MagicMock):
@@ -53,7 +58,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10+99 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 144"
+            == "Request: 10d10+99 Rolls: [9 8 7 6 5 4 3 2 1 0] + 99 Result: 144"
         )
 
     def test_full_text_9876543210_minus_87(self):
@@ -66,7 +71,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10-87 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: -42"
+            == "Request: 10d10-87 Rolls: [9 8 7 6 5 4 3 2 1 0] - 87 Result: -42"
         )
 
     def test_no_unnecessary_decimals(self):
@@ -79,7 +84,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10+1 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 46"
+            == "Request: 10d10+1 Rolls: [9 8 7 6 5 4 3 2 1 0] + 1 Result: 46"
         )
 
     def test_decimals_when_needed(self):
@@ -92,7 +97,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10+0.5 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45.5"
+            == "Request: 10d10+0.5 Rolls: [9 8 7 6 5 4 3 2 1 0] + 0.5 Result: 45.5"
         )
 
 
@@ -107,3 +112,29 @@ class TestAsFloatIfHasDecimals:
 
     def test_float(self):
         assert as_float_if_has_decimals(5.34) == 5.34
+
+
+class TestNumberAsString:
+    def test_positive_integer(self):
+        assert number_as_string_with_sign(3) == "+3"
+
+    def test_negative_integer(self):
+        assert number_as_string_with_sign(-4) == "-4"
+
+    def test_positive_float(self):
+        assert number_as_string_with_sign(5.0) == "+5.0"
+
+    def test_negative_float(self):
+        assert number_as_string_with_sign(-23.0) == "-23.0"
+
+    def test_with_spaces_positive_integer(self):
+        assert number_as_string_with_spaces_around_sign(3) == " + 3"
+
+    def test_with_spaces_negative_integer(self):
+        assert number_as_string_with_spaces_around_sign(-4) == " - 4"
+
+    def test_with_spaces_positive_float(self):
+        assert number_as_string_with_spaces_around_sign(5.0) == " + 5.0"
+
+    def test_with_spaces_negative_float(self):
+        assert number_as_string_with_spaces_around_sign(-23.0) == " - 23.0"
