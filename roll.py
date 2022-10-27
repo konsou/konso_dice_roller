@@ -15,11 +15,14 @@ class Roll:
         self._individual_results = tuple(
             (randint(1, self.dice_sides) for _ in range(self.number_of_dice))
         )
-        self._result = 0
 
     @property
     def result(self) -> Optional[float]:
-        return self._result
+        return (
+            sum(self.individual_results)
+            if self.individual_results is not None
+            else None
+        )
 
     @property
     def individual_results(self) -> Optional[tuple[float, ...]]:
