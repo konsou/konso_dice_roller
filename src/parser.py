@@ -17,6 +17,8 @@ def parse_input(input_string: str) -> Roll:
 
 
 def _parse_constant(input_string: str) -> tuple[str, float]:
+    """Return (dice part, constant)
+    e.g. ("5d6", 2), ("3d10", -3)"""
     constant_sign = _constant_sign(input_string)
     if not constant_sign:
         return input_string, 0
