@@ -1,8 +1,12 @@
 from unittest import TestCase
+from unittest.mock import MagicMock
 
 import pytest
 
-from konso_dice_roller.parse import parse_input
+from konso_dice_roller.parse import (
+    parse_input,
+    validate_roll_info,
+)
 
 
 class TestParseInput(TestCase):
@@ -194,3 +198,37 @@ class TestParseInput(TestCase):
         with pytest.raises(ValueError) as e:
             parse_input("2d2-")
         assert str(e.value) == "Virhe syötteen käsittelyssä"
+
+
+class TestValidateRollInfo:
+    def test_number_of_dice_limit_too_high(self):
+        mock_roll_info = MagicMock(number_of_dice=101)
+        with pytest.raises(ValueError) as e:
+            validate_roll_info(
+                roll_info=mock_roll_info,
+                number_of_dice_limit=100,
+            )
+        assert str(e.value) == "Liian monta noppaa"
+
+    def test_number_of_dice_limit_exactly(self):
+        mock_roll_info = MagicMock(number_of_dice=50)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            number_of_dice_limit=50,
+        )
+
+    def test_number_of_dice_limit_under(self):
+        mock_roll_info = MagicMock(number_of_dice=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            number_of_dice_limit=50,
+        )
+
+    def test_number_of_dice_limit_not_set(self):
+        mock_roll_info = MagicMock(number_of_dice=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+        )
