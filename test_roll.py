@@ -10,7 +10,6 @@ class Test:
             dice_sides=6,
             bonus=0,
         )
-        roll.roll()
         output = roll.result_as_text
         assert "Result: " in output
         assert not output.endswith("Result: ")
@@ -31,7 +30,6 @@ class Test:
             dice_sides=10,
             bonus=3,
         )
-        roll.roll()
         assert isinstance(roll.result, float) or isinstance(roll.result, int)
 
     def test_roll_total_result_matches_individual_results_6(self):
@@ -44,7 +42,6 @@ class Test:
                 dice_sides=3,
                 bonus=0,
             )
-            roll.roll()
             assert roll.result == 1 + 2 + 3
 
     def test_roll_total_result_matches_individual_results_26(self):
@@ -57,7 +54,6 @@ class Test:
                 dice_sides=10,
                 bonus=0,
             )
-            roll.roll()
             assert roll.result == 5 + 6 + 7 + 8
 
     def test_roll_individual_roll_results_exist_5d6(self):
@@ -66,7 +62,6 @@ class Test:
             dice_sides=6,
             bonus=0,
         )
-        roll.roll()
         assert len(roll.individual_results) == 5
 
     def test_roll_individual_roll_results_exist_7d8(self):
@@ -75,5 +70,4 @@ class Test:
             dice_sides=8,
             bonus=0,
         )
-        roll.roll()
         assert len(roll.individual_results) == 7
