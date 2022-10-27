@@ -2,3 +2,4 @@ venv/
 .idea/
 build/
 dist/
+konso_dice_roller.egg-info/
