@@ -1,5 +1,4 @@
 from random import randint
-from typing import Optional
 
 
 class Roll:
@@ -7,7 +6,7 @@ class Roll:
         self.number_of_dice = number_of_dice
         self.dice_sides = dice_sides
         self.bonus = bonus
-        self._individual_results: Optional[tuple[float, ...]] = None
+        self._individual_results: tuple[float, ...] = ()
 
         self.roll()
 
@@ -17,7 +16,7 @@ class Roll:
         )
 
     @property
-    def result(self) -> Optional[float]:
+    def result(self) -> float:
         return (
             sum(self.individual_results)
             if self.individual_results is not None
@@ -25,9 +24,10 @@ class Roll:
         )
 
     @property
-    def individual_results(self) -> Optional[tuple[float, ...]]:
+    def individual_results(self) -> tuple[float, ...]:
         return self._individual_results
 
     @property
     def result_as_text(self) -> str:
-        return f"Result: {self.result}"
+        individual_results_text = " ".join((str(r) for r in self.individual_results))
+        return f"Rolls: [{individual_results_text}] Result: {self.result}"

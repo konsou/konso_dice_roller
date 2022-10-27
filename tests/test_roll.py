@@ -14,7 +14,7 @@ class Test:
         assert "Result: " in output
         assert not output.endswith("Result: ")
 
-    def test_roll_correct_result_shown(self):
+    def test_roll_correct_total_result_shown_3(self):
         with patch("src.roll.Roll.result", new_callable=PropertyMock) as mock_result:
             mock_result.return_value = 3
             roll = Roll(
@@ -23,6 +23,40 @@ class Test:
                 bonus=0,
             )
             assert roll.result_as_text.endswith("Result: 3")
+
+    def test_roll_correct_total_result_shown_482(self):
+        with patch("src.roll.Roll.result", new_callable=PropertyMock) as mock_result:
+            mock_result.return_value = 482
+            roll = Roll(
+                number_of_dice=2,
+                dice_sides=6,
+                bonus=432,
+            )
+            assert roll.result_as_text.endswith("Result: 482")
+
+    def test_roll_correct_individual_result_shown_12345(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (1, 2, 3, 4, 5)
+            roll = Roll(
+                number_of_dice=5,
+                dice_sides=6,
+                bonus=0,
+            )
+            assert "[1 2 3 4 5]" in roll.result_as_text
+
+    def test_roll_correct_individual_result_shown_23_9954_1(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (23, 9954, 1)
+            roll = Roll(
+                number_of_dice=3,
+                dice_sides=10_000,
+                bonus=0,
+            )
+            assert "[23 9954 1]" in roll.result_as_text
 
     def test_roll_numeric_result_exists(self):
         roll = Roll(
