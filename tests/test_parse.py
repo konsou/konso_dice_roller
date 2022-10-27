@@ -123,74 +123,74 @@ class TestParseInput(TestCase):
     def test_zero_sided_dice(self):
         with pytest.raises(ValueError) as e:
             parse_input("1d0")
-        assert str(e.value) == "Invalid dice sides"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_negative_sided_dice(self):
         with pytest.raises(ValueError) as e:
             parse_input("1d-4")
-        assert str(e.value) == "Invalid dice sides"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_no_dice_sides_given(self):
         with pytest.raises(ValueError) as e:
             parse_input("1d")
-        assert str(e.value) == "Invalid dice sides"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_nonsense_input(self):
         with pytest.raises(ValueError) as e:
             parse_input("asdfasdf")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_nonsense_input_without_ds(self):
         with pytest.raises(ValueError) as e:
             parse_input("oooooooooooo")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_nonsense_input_numbers_only(self):
         with pytest.raises(ValueError) as e:
             parse_input("111111111111")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_nonsense_input_numbers_and_letters(self):
         with pytest.raises(ValueError) as e:
             parse_input("111FD4HGFD6K")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_bonus_only(self):
         with pytest.raises(ValueError) as e:
             parse_input("+5")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_non_numeric_number_of_dice(self):
         with pytest.raises(ValueError) as e:
             parse_input("zd2")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_non_numeric_bonus(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2+g")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_non_numeric_negative_bonus(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2-g")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_double_bonus_signs(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2++1")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_double_bonus_signs_negative(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2--1")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_bonus_sign_without_value(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2+")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
 
     def test_negative_bonus_sign_without_value(self):
         with pytest.raises(ValueError) as e:
             parse_input("2d2-")
-        assert str(e.value) == "Invalid input"
+        assert str(e.value) == "Virhe syötteen käsittelyssä"
