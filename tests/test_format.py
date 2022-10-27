@@ -17,16 +17,16 @@ class TestRollAsText:
     def test_result_shown(self):
         roll = MockRoll()
         output = roll_as_text(roll)
-        assert "Result: " in output
-        assert not output.endswith("Result: ")
+        assert "Tulos: " in output
+        assert not output.endswith("Tulos: ")
 
     def test_correct_total_result_shown_3(self):
         roll = MockRoll(result=3)
-        assert roll_as_text(roll).endswith("Result: 3")
+        assert roll_as_text(roll).endswith("Tulos: 3")
 
     def test_correct_total_result_shown_482(self):
         roll = MockRoll(result=482)
-        assert roll_as_text(roll).endswith("Result: 482")
+        assert roll_as_text(roll).endswith("Tulos: 482")
 
     def test_correct_individual_result_shown_12345(self):
         roll = MockRoll(individual_results=(1, 2, 3, 4, 5))
@@ -44,10 +44,7 @@ class TestRollAsText:
             individual_results=(9, 8, 7, 6, 5, 4, 3, 2, 1, 0),
             result=45,
         )
-        assert (
-            roll_as_text(roll)
-            == "Request: 10d10 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45"
-        )
+        assert roll_as_text(roll) == "10d10 Heitot: [9 8 7 6 5 4 3 2 1 0] Tulos: 45"
 
     def test_full_text_9876543210_plus_99(self):
         roll = MockRoll(
@@ -59,7 +56,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10+99 Rolls: [9 8 7 6 5 4 3 2 1 0] + 99 Result: 144"
+            == "10d10+99 Heitot: [9 8 7 6 5 4 3 2 1 0] + 99 Tulos: 144"
         )
 
     def test_full_text_9876543210_minus_87(self):
@@ -72,7 +69,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10-87 Rolls: [9 8 7 6 5 4 3 2 1 0] - 87 Result: -42"
+            == "10d10-87 Heitot: [9 8 7 6 5 4 3 2 1 0] - 87 Tulos: -42"
         )
 
     def test_no_unnecessary_decimals(self):
@@ -84,8 +81,7 @@ class TestRollAsText:
             result=46.0,
         )
         assert (
-            roll_as_text(roll)
-            == "Request: 10d10+1 Rolls: [9 8 7 6 5 4 3 2 1 0] + 1 Result: 46"
+            roll_as_text(roll) == "10d10+1 Heitot: [9 8 7 6 5 4 3 2 1 0] + 1 Tulos: 46"
         )
 
     def test_decimals_when_needed(self):
@@ -98,7 +94,7 @@ class TestRollAsText:
         )
         assert (
             roll_as_text(roll)
-            == "Request: 10d10+0.5 Rolls: [9 8 7 6 5 4 3 2 1 0] + 0.5 Result: 45.5"
+            == "10d10+0.5 Heitot: [9 8 7 6 5 4 3 2 1 0] + 0.5 Tulos: 45.5"
         )
 
 
@@ -106,16 +102,16 @@ class TestRollAsMarkdownText:
     def test_result_shown(self):
         roll = MockRoll()
         output = roll_as_markdown_text(roll)
-        assert "Result: " in output
-        assert not output.endswith("Result: ")
+        assert "Tulos: " in output
+        assert not output.endswith("Tulos: ")
 
     def test_correct_total_result_shown_3(self):
         roll = MockRoll(result=3)
-        assert roll_as_markdown_text(roll).endswith("Result: `3`")
+        assert roll_as_markdown_text(roll).endswith("Tulos: `3`")
 
     def test_correct_total_result_shown_482(self):
         roll = MockRoll(result=482)
-        assert roll_as_markdown_text(roll).endswith("Result: `482`")
+        assert roll_as_markdown_text(roll).endswith("Tulos: `482`")
 
     def test_correct_individual_result_shown_12345(self):
         roll = MockRoll(individual_results=(1, 2, 3, 4, 5))
@@ -135,7 +131,7 @@ class TestRollAsMarkdownText:
         )
         assert (
             roll_as_markdown_text(roll)
-            == "Request: `10d10` Rolls: `[9 8 7 6 5 4 3 2 1 0]` Result: `45`"
+            == "`10d10` Heitot: `[9 8 7 6 5 4 3 2 1 0]` Tulos: `45`"
         )
 
     def test_full_text_9876543210_plus_99(self):
@@ -148,7 +144,7 @@ class TestRollAsMarkdownText:
         )
         assert (
             roll_as_markdown_text(roll)
-            == "Request: `10d10+99` Rolls: `[9 8 7 6 5 4 3 2 1 0] + 99` Result: `144`"
+            == "`10d10+99` Heitot: `[9 8 7 6 5 4 3 2 1 0] + 99` Tulos: `144`"
         )
 
     def test_full_text_9876543210_minus_87(self):
@@ -161,7 +157,7 @@ class TestRollAsMarkdownText:
         )
         assert (
             roll_as_markdown_text(roll)
-            == "Request: `10d10-87` Rolls: `[9 8 7 6 5 4 3 2 1 0] - 87` Result: `-42`"
+            == "`10d10-87` Heitot: `[9 8 7 6 5 4 3 2 1 0] - 87` Tulos: `-42`"
         )
 
     def test_no_unnecessary_decimals(self):
@@ -174,7 +170,7 @@ class TestRollAsMarkdownText:
         )
         assert (
             roll_as_markdown_text(roll)
-            == "Request: `10d10+1` Rolls: `[9 8 7 6 5 4 3 2 1 0] + 1` Result: `46`"
+            == "`10d10+1` Heitot: `[9 8 7 6 5 4 3 2 1 0] + 1` Tulos: `46`"
         )
 
     def test_decimals_when_needed(self):
@@ -187,7 +183,7 @@ class TestRollAsMarkdownText:
         )
         assert (
             roll_as_markdown_text(roll)
-            == "Request: `10d10+0.5` Rolls: `[9 8 7 6 5 4 3 2 1 0] + 0.5` Result: `45.5`"
+            == "`10d10+0.5` Heitot: `[9 8 7 6 5 4 3 2 1 0] + 0.5` Tulos: `45.5`"
         )
 
 
