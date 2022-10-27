@@ -16,6 +16,10 @@ def parse_input(input_string: str) -> Roll:
     )
 
 
+def roll_string_from_input(input_string: str) -> str:
+    return parse_input(input_string).result_as_text
+
+
 def _parse_bonus(input_string: str) -> tuple[str, float]:
     """Return (dice part, bonus)
     e.g. ("5d6", 2), ("3d10", -3)"""
