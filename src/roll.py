@@ -20,11 +20,7 @@ class Roll:
 
     @property
     def result(self) -> float:
-        return (
-            sum(self.individual_results)
-            if self.individual_results is not None
-            else None
-        )
+        return sum(self.individual_results) + self.bonus
 
     @property
     def individual_results(self) -> tuple[float, ...]:
