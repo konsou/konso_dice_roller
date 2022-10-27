@@ -1,1 +1,1 @@
-max-line-length = 88
+ignore=E501,W503

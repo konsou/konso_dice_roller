@@ -16,6 +16,19 @@ def roll_as_text(roll: Roll) -> str:
     )
 
 
+def roll_as_markdown_text(roll: Roll) -> str:
+    bonus = getattr(roll, "bonus", 0)
+    request_bonus, after_rolls_bonus = _bonus_strings_from_bonus(bonus)
+
+    individual_results_text = " ".join((str(r) for r in roll.individual_results))
+
+    return (
+        f"Request: `{roll.number_of_dice}d{roll.dice_sides}{request_bonus}` "
+        f"Rolls: `[{individual_results_text}]{after_rolls_bonus}` "
+        f"Result: `{as_float_if_has_decimals(roll.result)}`"
+    )
+
+
 def _bonus_strings_from_bonus(bonus: float) -> tuple[str, str]:
     """Return:
     (request bonus, after rolls bonus)

@@ -2,7 +2,7 @@ import re
 
 from typing import Literal
 
-from src.format import roll_as_text
+from src.format import roll_as_text, roll_as_markdown_text
 from src.roll import Roll
 
 
@@ -19,6 +19,10 @@ def parse_input(input_string: str) -> Roll:
 
 def roll_string_from_input(input_string: str) -> str:
     return roll_as_text(parse_input(input_string))
+
+
+def markdown_roll_string_from_input(input_string: str) -> str:
+    return roll_as_markdown_text(parse_input(input_string))
 
 
 def _parse_bonus(input_string: str) -> tuple[str, float]:
