@@ -96,15 +96,14 @@ class TestRollAsText:
         )
 
 
-def test_as_float_if_has_decimals_int():
-    assert as_float_if_has_decimals(5) == 5
+class TestAsFloatIfHasDecimals:
+    def test_int(self):
+        assert as_float_if_has_decimals(5) == 5
 
+    def test_float_with_int_value(self):
+        result = as_float_if_has_decimals(5.0)
+        assert result == 5
+        assert isinstance(result, int)
 
-def test_as_float_if_has_decimals_float_with_int_value():
-    result = as_float_if_has_decimals(5.0)
-    assert result == 5
-    assert isinstance(result, int)
-
-
-def test_as_float_if_has_decimals_float():
-    assert as_float_if_has_decimals(5.34) == 5.34
+    def test_float(self):
+        assert as_float_if_has_decimals(5.34) == 5.34
