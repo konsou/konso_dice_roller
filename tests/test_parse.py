@@ -116,3 +116,7 @@ class TestParseInput(TestCase):
         assert result.number_of_dice == 1
         assert result.dice_sides == 6
         assert result.bonus == 1
+
+    def test_zero_sided_dice(self):
+        with self.assertRaises(ValueError):
+            parse_input("1d0")

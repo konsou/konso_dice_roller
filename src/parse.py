@@ -11,10 +11,17 @@ def parse_input(input_string: str) -> RollInfo:
     # Strip all whitespace
     input_string = re.sub(r"\s+", "", input_string)
     dice, bonus = _parse_bonus(input_string)
-    number_of_dice, dice_sides = dice.split("d")
+    number_of_dice_text, dice_sides_text = dice.split("d")
+
+    number_of_dice = int(number_of_dice_text)
+    dice_sides = int(dice_sides_text)
+
+    if dice_sides < 1:
+        raise ValueError("Can't roll dice with less than one side")
+
     return RollInfo(
-        number_of_dice=int(number_of_dice),
-        dice_sides=int(dice_sides),
+        number_of_dice=number_of_dice,
+        dice_sides=dice_sides,
         bonus=bonus,
     )
 
