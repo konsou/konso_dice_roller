@@ -38,3 +38,15 @@ class Test(TestCase):
         assert result.number_of_dice == 1
         assert result.dice_sides == 6
         assert result.bonus == 1
+
+    def test_parse_input_5d8plus7(self):
+        result = parse_input("5d8+7")
+        assert result.number_of_dice == 5
+        assert result.dice_sides == 8
+        assert result.bonus == 7
+
+    def test_parse_input_1d6minus1(self):
+        result = parse_input("1d6-1")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 6
+        assert result.bonus == -1

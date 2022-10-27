@@ -1,3 +1,7 @@
+import re
+
+from typing import Literal
+
 from roll import Roll
 
 
@@ -7,13 +11,22 @@ def parse_input(input_string: str) -> Roll:
     return Roll(
         number_of_dice=int(number_of_dice),
         dice_sides=int(dice_sides),
-        bonus=float(constant),
+        bonus=constant,
     )
 
 
-def _parse_constant(input_string: str) -> tuple[str, str]:
-    split = input_string.split("+")
-    try:
-        return split[0], split[1]
-    except IndexError:
-        return split[0], "0"
+def _parse_constant(input_string: str) -> tuple[str, float]:
+    constant_sign = _constant_sign(input_string)
+    if not constant_sign:
+        return input_string, 0
+
+    split = re.split("[+-]", input_string)
+    return split[0], float(f"{constant_sign}{split[1]}")
+
+
+def _constant_sign(input_string: str) -> Literal["+", "-", ""]:
+    if "+" in input_string:
+        return "+"
+    if "-" in input_string:
+        return "-"
+    return ""
