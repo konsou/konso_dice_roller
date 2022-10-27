@@ -7,13 +7,24 @@ from src.roll import Roll, RollInfo
 
 
 def parse_input(input_string: str) -> RollInfo:
-    input_string = input_string.lower().strip()
+    input_string = input_string.lower()
     # Strip all whitespace
     input_string = re.sub(r"\s+", "", input_string)
-    dice, bonus = _parse_bonus(input_string)
-    number_of_dice_text, dice_sides_text = dice.split("d")
 
-    number_of_dice = int(number_of_dice_text)
+    try:
+        dice, bonus = _parse_bonus(input_string)
+    except ValueError:
+        raise ValueError("Invalid input")
+
+    try:
+        number_of_dice_text, dice_sides_text = dice.split("d")
+    except ValueError:
+        raise ValueError("Invalid input")
+
+    try:
+        number_of_dice = int(number_of_dice_text)
+    except ValueError:
+        raise ValueError("Invalid input")
 
     try:
         dice_sides = int(dice_sides_text)
