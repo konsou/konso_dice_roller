@@ -1,6 +1,6 @@
 from unittest.mock import patch, PropertyMock
 
-from roll import Roll
+from src.roll import Roll
 
 
 class Test:
@@ -15,7 +15,7 @@ class Test:
         assert not output.endswith("Result: ")
 
     def test_roll_correct_result_shown(self):
-        with patch("roll.Roll.result", new_callable=PropertyMock) as mock_result:
+        with patch("src.roll.Roll.result", new_callable=PropertyMock) as mock_result:
             mock_result.return_value = 3
             roll = Roll(
                 number_of_dice=2,
@@ -34,7 +34,7 @@ class Test:
 
     def test_roll_total_result_matches_individual_results_6(self):
         with patch(
-            "roll.Roll.individual_results", new_callable=PropertyMock
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (1, 2, 3)
             roll = Roll(
@@ -46,7 +46,7 @@ class Test:
 
     def test_roll_total_result_matches_individual_results_26(self):
         with patch(
-            "roll.Roll.individual_results", new_callable=PropertyMock
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (5, 6, 7, 8)
             roll = Roll(

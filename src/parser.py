@@ -2,7 +2,7 @@ import re
 
 from typing import Literal
 
-from roll import Roll
+from src.roll import Roll
 
 
 def parse_input(input_string: str) -> Roll:
