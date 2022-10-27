@@ -1,4 +1,7 @@
 from unittest import TestCase
+
+import pytest
+
 from src.parse import parse_input
 
 
@@ -118,5 +121,16 @@ class TestParseInput(TestCase):
         assert result.bonus == 1
 
     def test_zero_sided_dice(self):
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError) as e:
             parse_input("1d0")
+        assert str(e.value) == "Invalid dice sides"
+
+    def test_negative_sided_dice(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("1d-4")
+        assert str(e.value) == "Invalid dice sides"
+
+    def test_no_dice_sides_given(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("1d")
+        assert str(e.value) == "Invalid dice sides"

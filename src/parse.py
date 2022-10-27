@@ -14,10 +14,14 @@ def parse_input(input_string: str) -> RollInfo:
     number_of_dice_text, dice_sides_text = dice.split("d")
 
     number_of_dice = int(number_of_dice_text)
-    dice_sides = int(dice_sides_text)
+
+    try:
+        dice_sides = int(dice_sides_text)
+    except ValueError:
+        raise ValueError("Invalid dice sides")
 
     if dice_sides < 1:
-        raise ValueError("Can't roll dice with less than one side")
+        raise ValueError("Invalid dice sides")
 
     return RollInfo(
         number_of_dice=number_of_dice,
