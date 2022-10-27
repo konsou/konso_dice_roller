@@ -18,4 +18,4 @@ class Roll:
 
     @property
     def result_as_text(self) -> str:
-        return "Result: 0"
+        return f"Result: {self.result}"
