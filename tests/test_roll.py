@@ -58,6 +58,22 @@ class Test:
             )
             assert "[23 9954 1]" in roll.result_as_text
 
+    def test_roll_result_as_text_9876543210(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+            with patch(
+                "src.roll.Roll.result", new_callable=PropertyMock
+            ) as mock_result:
+                mock_result.return_value = 45
+                roll = Roll(
+                    number_of_dice=10,
+                    dice_sides=10,
+                    bonus=0,
+                )
+                assert roll.result_as_text == "Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45"
+
     def test_roll_numeric_result_exists(self):
         roll = Roll(
             number_of_dice=1,
