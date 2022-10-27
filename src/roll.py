@@ -1,4 +1,11 @@
 from random import randint
+from typing import NamedTuple
+
+
+class RollInfo(NamedTuple):
+    number_of_dice: int
+    dice_sides: int
+    bonus: float = 0
 
 
 class Roll:
@@ -9,6 +16,14 @@ class Roll:
         self._individual_results: tuple[int, ...] = ()
 
         self._roll()
+
+    @classmethod
+    def from_roll_info(cls, roll_info: RollInfo) -> "Roll":
+        return cls(
+            number_of_dice=roll_info.number_of_dice,
+            dice_sides=roll_info.dice_sides,
+            bonus=roll_info.bonus,
+        )
 
     def _roll(self):
         self._individual_results = tuple(

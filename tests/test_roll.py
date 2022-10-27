@@ -1,9 +1,9 @@
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock, MagicMock
 
 from src.roll import Roll
 
 
-class Test:
+class TestRoll:
     def test_roll_numeric_result_exists(self):
         roll = Roll(
             number_of_dice=1,
@@ -77,3 +77,14 @@ class Test:
             bonus=0,
         )
         assert len(roll.individual_results) == 7
+
+    def test_from_roll_info(self):
+        roll_info = MagicMock(
+            number_of_dice=10,
+            dice_sides=20,
+            bonus=1,
+        )
+        roll = Roll.from_roll_info(roll_info)
+        assert roll.number_of_dice == 10
+        assert roll.dice_sides == 20
+        assert roll.bonus == 1
