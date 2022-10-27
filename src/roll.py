@@ -1,5 +1,4 @@
 from random import randint
-from typing import Union
 
 
 class Roll:
@@ -10,9 +9,6 @@ class Roll:
         self._individual_results: tuple[int, ...] = ()
 
         self._roll()
-
-    def __str__(self) -> str:
-        return self.result_as_text
 
     def _roll(self):
         self._individual_results = tuple(
@@ -26,19 +22,3 @@ class Roll:
     @property
     def individual_results(self) -> tuple[float, ...]:
         return self._individual_results
-
-    @property
-    def result_as_text(self) -> str:
-        individual_results_text = " ".join((str(r) for r in self.individual_results))
-        possible_bonus = (
-            f"{as_float_if_has_decimals(self.bonus):+}" if self.bonus else ""
-        )
-        return (
-            f"Request: {self.number_of_dice}d{self.dice_sides}{possible_bonus} "
-            f"Rolls: [{individual_results_text}] "
-            f"Result: {as_float_if_has_decimals(self.result)}"
-        )
-
-
-def as_float_if_has_decimals(number: Union[int, float]) -> Union[int, float]:
-    return int(number) if int(number) == number else number
