@@ -1,4 +1,4 @@
-from parser import roll_string_from_input
+from parse import roll_string_from_input
 
 if __name__ == "__main__":
     print(roll_string_from_input("1d6"))
