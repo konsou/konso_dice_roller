@@ -241,7 +241,9 @@ class TestIndividualFunctions:
         assert as_float_if_has_decimals(5) == 5
 
     def test_as_float_if_has_decimals_float_with_int_value(self):
-        assert as_float_if_has_decimals(5.0) == 5
+        result = as_float_if_has_decimals(5.0)
+        assert result == 5
+        assert isinstance(result, int)
 
     def test_as_float_if_has_decimals_float(self):
         assert as_float_if_has_decimals(5.34) == 5.34
