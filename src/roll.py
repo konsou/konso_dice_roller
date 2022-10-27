@@ -10,6 +10,9 @@ class Roll:
 
         self.roll()
 
+    def __str__(self) -> str:
+        return self.result_as_text
+
     def roll(self):
         self._individual_results = tuple(
             (randint(1, self.dice_sides) for _ in range(self.number_of_dice))

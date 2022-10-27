@@ -74,6 +74,14 @@ class Test:
                 )
                 assert roll.result_as_text == "Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45"
 
+    def test_roll_str_equals_result_as_text(self):
+        roll = Roll(
+            number_of_dice=2,
+            dice_sides=6,
+            bonus=10,
+        )
+        assert roll.result_as_text == str(roll)
+
     def test_roll_numeric_result_exists(self):
         roll = Roll(
             number_of_dice=1,
