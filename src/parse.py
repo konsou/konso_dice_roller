@@ -3,14 +3,14 @@ import re
 from typing import Literal
 
 from src.format import roll_as_text, roll_as_markdown_text
-from src.roll import Roll
+from src.roll import Roll, RollInfo
 
 
-def parse_input(input_string: str) -> Roll:
+def parse_input(input_string: str) -> RollInfo:
     input_string = input_string.lower().strip()
     dice, bonus = _parse_bonus(input_string)
     number_of_dice, dice_sides = dice.split("d")
-    return Roll(
+    return RollInfo(
         number_of_dice=int(number_of_dice),
         dice_sides=int(dice_sides),
         bonus=bonus,
@@ -18,11 +18,15 @@ def parse_input(input_string: str) -> Roll:
 
 
 def roll_string_from_input(input_string: str) -> str:
-    return roll_as_text(parse_input(input_string))
+    roll_info = parse_input(input_string)
+    roll = Roll.from_roll_info(roll_info)
+    return roll_as_text(roll)
 
 
 def markdown_roll_string_from_input(input_string: str) -> str:
-    return roll_as_markdown_text(parse_input(input_string))
+    roll_info = parse_input(input_string)
+    roll = Roll.from_roll_info(roll_info)
+    return roll_as_markdown_text(roll)
 
 
 def _parse_bonus(input_string: str) -> tuple[str, float]:
