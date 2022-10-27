@@ -1,6 +1,6 @@
 from typing import Union
 
-from src.roll import Roll
+from konso_dice_roller.roll import Roll
 
 
 def roll_as_text(roll: Roll) -> str:
@@ -10,9 +10,9 @@ def roll_as_text(roll: Roll) -> str:
     individual_results_text = " ".join((str(r) for r in roll.individual_results))
 
     return (
-        f"{roll.number_of_dice}d{roll.dice_sides}{request_bonus} "
-        f"Heitot: [{individual_results_text}]{after_rolls_bonus} "
-        f"Tulos: {as_float_if_has_decimals(roll.result)}"
+        f"{roll.number_of_dice}d{roll.dice_sides}{request_bonus}, "
+        f"tulos: [{individual_results_text}]{after_rolls_bonus} "
+        f"= {as_float_if_has_decimals(roll.result)}"
     )
 
 
@@ -23,9 +23,9 @@ def roll_as_markdown_text(roll: Roll) -> str:
     individual_results_text = " ".join((str(r) for r in roll.individual_results))
 
     return (
-        f"`{roll.number_of_dice}d{roll.dice_sides}{request_bonus}` "
-        f"Heitot: `[{individual_results_text}]{after_rolls_bonus}` "
-        f"Tulos: `{as_float_if_has_decimals(roll.result)}`"
+        f"`{roll.number_of_dice}d{roll.dice_sides}{request_bonus}`, "
+        f"tulos: `[{individual_results_text}]{after_rolls_bonus} "
+        f"= {as_float_if_has_decimals(roll.result)}`"
     )
 
 

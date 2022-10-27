@@ -1,6 +1,6 @@
 from unittest.mock import patch, PropertyMock, MagicMock
 
-from src.roll import Roll
+from konso_dice_roller.roll import Roll
 
 
 class TestRoll:
@@ -14,7 +14,7 @@ class TestRoll:
 
     def test_roll_total_result_matches_individual_results_6(self):
         with patch(
-            "src.roll.Roll.individual_results", new_callable=PropertyMock
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (1, 2, 3)
             roll = Roll(
@@ -26,7 +26,7 @@ class TestRoll:
 
     def test_roll_total_result_matches_individual_results_26(self):
         with patch(
-            "src.roll.Roll.individual_results", new_callable=PropertyMock
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (5, 6, 7, 8)
             roll = Roll(
@@ -38,7 +38,7 @@ class TestRoll:
 
     def test_roll_total_result_matches_individual_results_3344_and_bonus_1(self):
         with patch(
-            "src.roll.Roll.individual_results", new_callable=PropertyMock
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (3, 3, 4, 4)
             roll = Roll(
@@ -52,7 +52,7 @@ class TestRoll:
         self,
     ):
         with patch(
-            "src.roll.Roll.individual_results", new_callable=PropertyMock
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
         ) as mock_individual_results:
             mock_individual_results.return_value = (2, 9, 5, 4)
             roll = Roll(

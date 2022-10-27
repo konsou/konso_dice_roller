@@ -2,8 +2,8 @@ import re
 
 from typing import Literal
 
-from src.format import roll_as_text, roll_as_markdown_text
-from src.roll import Roll, RollInfo
+from konso_dice_roller.format import roll_as_text, roll_as_markdown_text
+from konso_dice_roller.roll import Roll, RollInfo
 
 
 def parse_input(input_string: str) -> RollInfo:

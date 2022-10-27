@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pytest
 
-from src.parse import parse_input
+from konso_dice_roller.parse import parse_input
 
 
 class TestParseInput(TestCase):
