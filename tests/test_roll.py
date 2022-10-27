@@ -1,6 +1,6 @@
 from unittest.mock import patch, PropertyMock
 
-from src.roll import Roll
+from src.roll import Roll, as_float_if_has_decimals
 
 
 class Test:
@@ -115,6 +115,44 @@ class Test:
                     == "Request: 10d10-87 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: -42"
                 )
 
+    def test_roll_result_as_text_no_unnecessary_decimals(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+            with patch(
+                "src.roll.Roll.result", new_callable=PropertyMock
+            ) as mock_result:
+                mock_result.return_value = 46.0
+                roll = Roll(
+                    number_of_dice=10,
+                    dice_sides=10,
+                    bonus=1.0,
+                )
+                assert (
+                    roll.result_as_text
+                    == "Request: 10d10+1 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 46"
+                )
+
+    def test_roll_result_as_text_decimals_when_needed(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+            with patch(
+                "src.roll.Roll.result", new_callable=PropertyMock
+            ) as mock_result:
+                mock_result.return_value = 45.5
+                roll = Roll(
+                    number_of_dice=10,
+                    dice_sides=10,
+                    bonus=0.5,
+                )
+                assert (
+                    roll.result_as_text
+                    == "Request: 10d10+0.5 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45.5"
+                )
+
     def test_roll_str_equals_result_as_text(self):
         roll = Roll(
             number_of_dice=2,
@@ -196,3 +234,14 @@ class Test:
             bonus=0,
         )
         assert len(roll.individual_results) == 7
+
+
+class TestIndividualFunctions:
+    def test_as_float_if_has_decimals_int(self):
+        assert as_float_if_has_decimals(5) == 5
+
+    def test_as_float_if_has_decimals_float_with_int_value(self):
+        assert as_float_if_has_decimals(5.0) == 5
+
+    def test_as_float_if_has_decimals_float(self):
+        assert as_float_if_has_decimals(5.34) == 5.34
