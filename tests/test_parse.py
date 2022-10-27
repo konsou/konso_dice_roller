@@ -80,3 +80,21 @@ class TestParseInput(TestCase):
         assert result.number_of_dice == 1
         assert result.dice_sides == 6
         assert result.bonus == 1
+
+    def test_space_before_d(self):
+        result = parse_input("1 d6+1")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 6
+        assert result.bonus == 1
+
+    def test_space_after_d(self):
+        result = parse_input("1d 6+1")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 6
+        assert result.bonus == 1
+
+    def test_space_before_and_after_d(self):
+        result = parse_input("1 d 6+1")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 6
+        assert result.bonus == 1
