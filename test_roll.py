@@ -33,3 +33,21 @@ class Test:
         )
         roll.roll()
         assert isinstance(roll.result, float) or isinstance(roll.result, int)
+
+    def test_roll_individual_roll_results_exist_5d6(self):
+        roll = Roll(
+            number_of_dice=5,
+            dice_sides=6,
+            bonus=0,
+        )
+        roll.roll()
+        assert len(roll.individual_results) == 5
+
+    def test_roll_individual_roll_results_exist_7d8(self):
+        roll = Roll(
+            number_of_dice=7,
+            dice_sides=8,
+            bonus=0,
+        )
+        roll.roll()
+        assert len(roll.individual_results) == 7
