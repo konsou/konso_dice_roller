@@ -8,6 +8,8 @@ from src.roll import Roll, RollInfo
 
 def parse_input(input_string: str) -> RollInfo:
     input_string = input_string.lower().strip()
+    # Strip all whitespace
+    input_string = re.sub(r"\s+", "", input_string)
     dice, bonus = _parse_bonus(input_string)
     number_of_dice, dice_sides = dice.split("d")
     return RollInfo(
