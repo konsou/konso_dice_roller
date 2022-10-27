@@ -72,7 +72,48 @@ class Test:
                     dice_sides=10,
                     bonus=0,
                 )
-                assert roll.result_as_text == "Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45"
+                assert (
+                    roll.result_as_text
+                    == "Request: 10d10 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 45"
+                )
+
+    def test_roll_result_as_text_9876543210_plus_99(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+            with patch(
+                "src.roll.Roll.result", new_callable=PropertyMock
+            ) as mock_result:
+                mock_result.return_value = 144
+                roll = Roll(
+                    number_of_dice=10,
+                    dice_sides=10,
+                    bonus=99,
+                )
+                assert (
+                    roll.result_as_text
+                    == "Request: 10d10+99 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: 144"
+                )
+
+    def test_roll_result_as_text_9876543210_minus_87(self):
+        with patch(
+            "src.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+            with patch(
+                "src.roll.Roll.result", new_callable=PropertyMock
+            ) as mock_result:
+                mock_result.return_value = -42
+                roll = Roll(
+                    number_of_dice=10,
+                    dice_sides=10,
+                    bonus=-87,
+                )
+                assert (
+                    roll.result_as_text
+                    == "Request: 10d10-87 Rolls: [9 8 7 6 5 4 3 2 1 0] Result: -42"
+                )
 
     def test_roll_str_equals_result_as_text(self):
         roll = Roll(

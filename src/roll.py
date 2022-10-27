@@ -29,4 +29,8 @@ class Roll:
     @property
     def result_as_text(self) -> str:
         individual_results_text = " ".join((str(r) for r in self.individual_results))
-        return f"Rolls: [{individual_results_text}] Result: {self.result}"
+        possible_bonus = f"{self.bonus:+}" if self.bonus else ""
+        return (
+            f"Request: {self.number_of_dice}d{self.dice_sides}{possible_bonus} "
+            f"Rolls: [{individual_results_text}] Result: {self.result}"
+        )
