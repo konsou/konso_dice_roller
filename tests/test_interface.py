@@ -4,6 +4,7 @@ from konso_dice_roller.interface import (
     roll_string_from_input,
     markdown_roll_string_from_input,
 )
+from konso_dice_roller.roll import ResultModes
 
 
 class TestMarkdown:
@@ -14,6 +15,7 @@ class TestMarkdown:
                     number_of_dice=5,
                     dice_sides=6,
                     bonus=3,
+                    result_mode=ResultModes.ADDITION,
                 )
                 markdown_roll_string_from_input(
                     input_string="5d6+3",
@@ -41,6 +43,7 @@ class TestPlaintext:
                     number_of_dice=5,
                     dice_sides=6,
                     bonus=3,
+                    result_mode=ResultModes.ADDITION,
                 )
                 roll_string_from_input(
                     input_string="5d6+3",
