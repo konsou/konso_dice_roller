@@ -30,6 +30,9 @@ def parse_input(input_string: str) -> RollInfo:
     except ValueError:
         raise ValueError("Virhe syötteen käsittelyssä")
 
+    if operator and bonus:
+        raise ValueError("Bonusta ja vertailua ei voi käyttää samassa heitossa")
+
     try:
         number_of_dice_text, dice_sides_text = dice.split("d")
     except ValueError:

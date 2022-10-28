@@ -268,6 +268,56 @@ class TestParseInput(TestCase):
             parse_input("2d2-")
         assert str(e.value) == "Virhe syötteen käsittelyssä"
 
+    def test_positive_bonus_and_gte(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8+3>=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_positive_bonus_and_lte(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8+3<=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_positive_bonus_and_gt(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8+3>5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_positive_bonus_and_lt(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8+3<5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_positive_bonus_and_eq(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8+3=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_negative_bonus_and_gte(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8-3>=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_negative_bonus_and_lte(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8-3<=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_negative_bonus_and_gt(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8-3>5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_negative_bonus_and_lt(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8-3<5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
+    def test_negative_bonus_and_eq(self):
+        with pytest.raises(ValueError) as e:
+            parse_input("8d8-3=5")
+        assert str(e.value) == "Bonusta ja vertailua ei voi käyttää samassa heitossa"
+
 
 class TestValidateRollInfo:
     def test_number_of_dice_over_limit(self):
