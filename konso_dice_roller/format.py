@@ -1,6 +1,6 @@
 from typing import Union
 
-from konso_dice_roller.roll import Roll
+from .roll import Roll
 
 
 def roll_as_text(roll: Roll) -> str:
