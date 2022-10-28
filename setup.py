@@ -33,7 +33,7 @@ with open("README.md", "r", "utf-8") as f:
 
 setup(
     name="konso_dice_roller",
-    version="0.0.5",
+    version="0.0.6",
     description="A simple dice roller library",
     long_description=readme,
     long_description_content_type="text/markdown",
