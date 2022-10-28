@@ -243,6 +243,71 @@ class TestRollAsMarkdownText:
             == "`10d10+0.5`, tulos: `[9 8 7 6 5 4 3 2 1 0] + 0.5 = 45.5`"
         )
 
+    def test_6d6_gte_5(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=2,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator=">=",
+            comparison_value=5,
+        )
+        assert roll_as_markdown_text(roll) == "`6d6>=5`, tulos: `[1 2 3 4 5 6] = 2`"
+
+    def test_6d6_lte_5(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=5,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator="<=",
+            comparison_value=5,
+        )
+        assert roll_as_markdown_text(roll) == "`6d6<=5`, tulos: `[1 2 3 4 5 6] = 5`"
+
+    def test_6d6_gt_5(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=1,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator=">",
+            comparison_value=5,
+        )
+        assert roll_as_markdown_text(roll) == "`6d6>5`, tulos: `[1 2 3 4 5 6] = 1`"
+
+    def test_6d6_lt_5(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=4,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator="<",
+            comparison_value=5,
+        )
+        assert roll_as_markdown_text(roll) == "`6d6<5`, tulos: `[1 2 3 4 5 6] = 4`"
+
+    def test_6d6_eq_5(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=1,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator="=",
+            comparison_value=5,
+        )
+        assert roll_as_markdown_text(roll) == "`6d6=5`, tulos: `[1 2 3 4 5 6] = 1`"
+
 
 class TestAsFloatIfHasDecimals:
     def test_int(self):
