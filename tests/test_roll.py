@@ -89,6 +89,23 @@ class TestRoll:
         assert roll.dice_sides == 20
         assert roll.bonus == 1
 
+    def test_from_roll_info_with_comparison(self):
+        roll_info = MagicMock(
+            number_of_dice=3,
+            dice_sides=8,
+            bonus=0,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator=">=",
+            comparison_value=4,
+        )
+        roll = Roll.from_roll_info(roll_info)
+        assert roll.number_of_dice == 3
+        assert roll.dice_sides == 8
+        assert roll.bonus == 0
+        assert roll.result_mode == ResultModes.COUNT_SUCCESSES
+        assert roll.comparison_operator == ">="
+        assert roll.comparison_value == 4
+
     def test_6d6_gte5(self):
         with patch(
             "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock

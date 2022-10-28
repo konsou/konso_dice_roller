@@ -60,6 +60,9 @@ class Roll:
             number_of_dice=roll_info.number_of_dice,
             dice_sides=roll_info.dice_sides,
             bonus=roll_info.bonus,
+            result_mode=roll_info.result_mode,
+            comparison_operator=roll_info.comparison_operator,
+            comparison_value=roll_info.comparison_value,
         )
 
     def _roll(self) -> None:
