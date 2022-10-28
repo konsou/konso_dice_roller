@@ -10,6 +10,9 @@ def roll_string_from_input(
     bonus_absolute_value_limit: int = 0,
 ) -> str:
     """Will raise a ValueError on errors"""
+    if "rick" in input_string.lower():
+        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
     roll_info = parse_input(input_string)
     validate_roll_info(
         roll_info=roll_info,
@@ -28,6 +31,9 @@ def markdown_roll_string_from_input(
     bonus_absolute_value_limit: int = 0,
 ) -> str:
     """Will raise a ValueError on errors"""
+    if "rick" in input_string.lower():
+        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
     roll_info = parse_input(input_string)
     validate_roll_info(
         roll_info=roll_info,
