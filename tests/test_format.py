@@ -154,6 +154,32 @@ class TestRollAsText:
         )
         assert roll_as_text(roll) == "6d6=5, tulos: [1 2 3 4 5 6] = 1"
 
+    def test_comparison_value_format_as_int_5_0(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=1,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator="=",
+            comparison_value=5.0,
+        )
+        assert roll_as_text(roll) == "6d6=5, tulos: [1 2 3 4 5 6] = 1"
+
+    def test_comparison_value_format_as_float_5_99(self):
+        roll = MockRoll(
+            number_of_dice=6,
+            dice_sides=6,
+            bonus=0,
+            individual_results=(1, 2, 3, 4, 5, 6),
+            result=1,
+            result_mode=ResultModes.COUNT_SUCCESSES,
+            comparison_operator="=",
+            comparison_value=5.99,
+        )
+        assert roll_as_text(roll) == "6d6=5.99, tulos: [1 2 3 4 5 6] = 1"
+
 
 class TestRollAsMarkdownText:
     def test_result_shown(self):
