@@ -264,3 +264,67 @@ class TestValidateRollInfo:
         validate_roll_info(
             roll_info=mock_roll_info,
         )
+
+    def test_bonus_over_limit(self):
+        mock_roll_info = MagicMock(bonus=101)
+        with pytest.raises(ValueError) as e:
+            validate_roll_info(
+                roll_info=mock_roll_info,
+                bonus_absolute_value_limit=100,
+            )
+        assert str(e.value) == "Bonus liian suuri"
+
+    def test_negative_bonus_over_limit(self):
+        mock_roll_info = MagicMock(bonus=-101)
+        with pytest.raises(ValueError) as e:
+            validate_roll_info(
+                roll_info=mock_roll_info,
+                bonus_absolute_value_limit=100,
+            )
+        assert str(e.value) == "Bonus liian pieni"
+
+    def test_bonus_exactly_at_limit(self):
+        mock_roll_info = MagicMock(bonus=50)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            bonus_absolute_value_limit=50,
+        )
+
+    def test_negative_bonus_exactly_at_limit(self):
+        mock_roll_info = MagicMock(bonus=-50)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            bonus_absolute_value_limit=50,
+        )
+
+    def test_bonus_under_limit(self):
+        mock_roll_info = MagicMock(bonus=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            bonus_absolute_value_limit=50,
+        )
+
+    def test_negative_bonus_under_limit(self):
+        mock_roll_info = MagicMock(bonus=-25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            bonus_absolute_value_limit=50,
+        )
+
+    def test_bonus_limit_not_set(self):
+        mock_roll_info = MagicMock(bonus=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+        )
+
+    def test_negative_bonus_limit_not_set(self):
+        mock_roll_info = MagicMock(bonus=-25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+        )

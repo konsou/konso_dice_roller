@@ -44,12 +44,18 @@ def validate_roll_info(
     roll_info: RollInfo,
     number_of_dice_limit: int = 0,
     dice_sides_limit: int = 0,
+    bonus_absolute_value_limit: int = 0,
 ) -> None:
     """Raise ValueErrors if values are higher than the limit"""
     if number_of_dice_limit and roll_info.number_of_dice > number_of_dice_limit:
         raise ValueError("Liian monta noppaa")
     if dice_sides_limit and roll_info.dice_sides > dice_sides_limit:
         raise ValueError("Nopilla liian monta sivua")
+    if bonus_absolute_value_limit:
+        if roll_info.bonus > bonus_absolute_value_limit:
+            raise ValueError("Bonus liian suuri")
+        if roll_info.bonus < -bonus_absolute_value_limit:
+            raise ValueError("Bonus liian pieni")
 
 
 def _parse_bonus(input_string: str) -> tuple[str, float]:
