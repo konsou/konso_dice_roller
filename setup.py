@@ -18,8 +18,10 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == "publish":
-    shutil.rmtree("build")
-    shutil.rmtree("dist")
+    if os.path.exists("build"):
+        shutil.rmtree("build")
+    if os.path.exists("dist"):
+        shutil.rmtree("dist")
     os.system("python setup.py sdist bdist_wheel")
     os.system("twine upload dist/*")
     sys.exit()
