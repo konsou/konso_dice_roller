@@ -19,6 +19,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == "publish":
     shutil.rmtree("build")
+    shutil.rmtree("dist")
     os.system("python setup.py sdist bdist_wheel")
     os.system("twine upload dist/*")
     sys.exit()
@@ -32,7 +33,7 @@ with open("README.md", "r", "utf-8") as f:
 
 setup(
     name="konso_dice_roller",
-    version="0.0.4",
+    version="0.0.5",
     description="A simple dice roller library",
     long_description=readme,
     long_description_content_type="text/markdown",
