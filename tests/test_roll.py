@@ -103,3 +103,63 @@ class TestRoll:
                 comparison_value=5,
             )
             assert roll.result == 2
+
+    def test_6d6_lte5(self):
+        with patch(
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (1, 2, 3, 4, 5, 6)
+            roll = Roll(
+                number_of_dice=6,
+                dice_sides=6,
+                bonus=0,
+                result_mode=ResultModes.COUNT_SUCCESSES,
+                comparison_operator="<=",
+                comparison_value=5,
+            )
+            assert roll.result == 5
+
+    def test_6d6_gt5(self):
+        with patch(
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (1, 2, 3, 4, 5, 6)
+            roll = Roll(
+                number_of_dice=6,
+                dice_sides=6,
+                bonus=0,
+                result_mode=ResultModes.COUNT_SUCCESSES,
+                comparison_operator=">",
+                comparison_value=5,
+            )
+            assert roll.result == 1
+
+    def test_6d6_lt5(self):
+        with patch(
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (1, 2, 3, 4, 5, 6)
+            roll = Roll(
+                number_of_dice=6,
+                dice_sides=6,
+                bonus=0,
+                result_mode=ResultModes.COUNT_SUCCESSES,
+                comparison_operator="<",
+                comparison_value=5,
+            )
+            assert roll.result == 4
+
+    def test_6d6_eq5(self):
+        with patch(
+            "konso_dice_roller.roll.Roll.individual_results", new_callable=PropertyMock
+        ) as mock_individual_results:
+            mock_individual_results.return_value = (1, 2, 3, 4, 5, 6)
+            roll = Roll(
+                number_of_dice=6,
+                dice_sides=6,
+                bonus=0,
+                result_mode=ResultModes.COUNT_SUCCESSES,
+                comparison_operator="=",
+                comparison_value=5,
+            )
+            assert roll.result == 1
