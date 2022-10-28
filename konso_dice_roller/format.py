@@ -58,7 +58,7 @@ def _operator_and_number_as_string(roll: Roll) -> str:
         and roll.comparison_operator
         and roll.comparison_value
     ):
-        return f"{roll.comparison_operator}{roll.comparison_value}"
+        return f"{roll.comparison_operator}{as_float_if_has_decimals(roll.comparison_value)}"
     else:
         return ""
 
