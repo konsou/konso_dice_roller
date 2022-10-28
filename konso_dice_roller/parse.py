@@ -40,10 +40,16 @@ def parse_input(input_string: str) -> RollInfo:
     )
 
 
-def validate_roll_info(roll_info: RollInfo, number_of_dice_limit: int = 0) -> None:
+def validate_roll_info(
+    roll_info: RollInfo,
+    number_of_dice_limit: int = 0,
+    dice_sides_limit: int = 0,
+) -> None:
     """Raise ValueErrors if values are higher than the limit"""
     if number_of_dice_limit and roll_info.number_of_dice > number_of_dice_limit:
         raise ValueError("Liian monta noppaa")
+    if dice_sides_limit and roll_info.dice_sides > dice_sides_limit:
+        raise ValueError("Nopilla liian monta sivua")
 
 
 def _parse_bonus(input_string: str) -> tuple[str, float]:

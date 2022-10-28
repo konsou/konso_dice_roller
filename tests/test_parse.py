@@ -201,7 +201,7 @@ class TestParseInput(TestCase):
 
 
 class TestValidateRollInfo:
-    def test_number_of_dice_limit_too_high(self):
+    def test_number_of_dice_over_limit(self):
         mock_roll_info = MagicMock(number_of_dice=101)
         with pytest.raises(ValueError) as e:
             validate_roll_info(
@@ -210,7 +210,7 @@ class TestValidateRollInfo:
             )
         assert str(e.value) == "Liian monta noppaa"
 
-    def test_number_of_dice_limit_exactly(self):
+    def test_number_of_dice_exactly_at_limit(self):
         mock_roll_info = MagicMock(number_of_dice=50)
         # Should not raise an exception
         validate_roll_info(
@@ -218,7 +218,7 @@ class TestValidateRollInfo:
             number_of_dice_limit=50,
         )
 
-    def test_number_of_dice_limit_under(self):
+    def test_number_of_dice_under_limit(self):
         mock_roll_info = MagicMock(number_of_dice=25)
         # Should not raise an exception
         validate_roll_info(
@@ -228,6 +228,38 @@ class TestValidateRollInfo:
 
     def test_number_of_dice_limit_not_set(self):
         mock_roll_info = MagicMock(number_of_dice=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+        )
+
+    def test_dice_sides_over_limit(self):
+        mock_roll_info = MagicMock(dice_sides=101)
+        with pytest.raises(ValueError) as e:
+            validate_roll_info(
+                roll_info=mock_roll_info,
+                dice_sides_limit=100,
+            )
+        assert str(e.value) == "Nopilla liian monta sivua"
+
+    def test_dice_sides_exactly_at_limit(self):
+        mock_roll_info = MagicMock(dice_sides=50)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            dice_sides_limit=50,
+        )
+
+    def test_dice_sides_under_limit(self):
+        mock_roll_info = MagicMock(dice_sides=25)
+        # Should not raise an exception
+        validate_roll_info(
+            roll_info=mock_roll_info,
+            dice_sides_limit=50,
+        )
+
+    def test_dice_sides_limit_not_set(self):
+        mock_roll_info = MagicMock(dice_sides=25)
         # Should not raise an exception
         validate_roll_info(
             roll_info=mock_roll_info,
