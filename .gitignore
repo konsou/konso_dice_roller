@@ -3,4 +3,4 @@ venv/
 build/
 dist/
 konso_dice_roller.egg-info/
-test_playground.py
+playground.py
