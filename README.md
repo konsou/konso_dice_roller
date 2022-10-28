@@ -9,8 +9,10 @@ A simple dice roller library I made for kicks.
 from konso_dice_roller import markdown_roll_string_from_input, roll_string_from_input
 
 if __name__ == '__main__':
-    print(roll_string_from_input("3d6+3"))
-    print(markdown_roll_string_from_input("2d6-2"))
+    print(roll_string_from_input("2d20+3"))
+    print(roll_string_from_input("3d6>=5"))
+    print(markdown_roll_string_from_input("3d8-2"))
+    print(markdown_roll_string_from_input("2d10=2"))
 
     result = roll_string_from_input(
         input_string="100d1",
@@ -18,10 +20,13 @@ if __name__ == '__main__':
         dice_sides_limit=20,
         bonus_absolute_value_limit=1_000,
     )
+
 ```
 Example output:
 ```
-3d6+3, tulos: [6 4 5] + 3 = 18
-`2d6-2`, tulos: `[2 1] - 2 = 1`
+2d20+3, tulos: [10 15] + 3 = 28
+3d6>=5, tulos: [3 5 3] = 1
+`3d8-2`, tulos: `[3 5 3] - 2 = 9`
+`2d10=2`, tulos: `[4 1] = 0`
 ValueError: Liian monta noppaa
 ```
