@@ -10,6 +10,11 @@ def parse_input(input_string: str) -> RollInfo:
     # Strip all whitespace
     input_string = re.sub(r"\s+", "", input_string)
 
+    if has_comparison_operators(input_string):
+        pass
+        # extract operator
+        # extract number after operator
+
     try:
         dice, bonus = _parse_bonus(input_string)
     except ValueError:
@@ -74,4 +79,18 @@ def _sign_in_string(input_string: str) -> Literal["+", "-", ""]:
         return "+"
     if "-" in input_string:
         return "-"
+    return ""
+
+
+def has_comparison_operators(input_string: str) -> bool:
+    valid_operators = ("<", ">", "=")
+    return any((o in input_string for o in valid_operators))
+
+
+def get_comparison_operator(
+    input_string: str,
+) -> Literal[">=", "<=", ">", "<", "=", ""]:
+    for operator in (">=", "<=", ">", "<", "="):
+        # TODO: implement
+        print(operator, input_string)
     return ""

@@ -7,6 +7,7 @@ from konso_dice_roller.parse import (
     parse_input,
     validate_roll_info,
 )
+from konso_dice_roller.roll import ResultModes
 
 
 class TestParseInput(TestCase):
@@ -69,6 +70,15 @@ class TestParseInput(TestCase):
         assert result.number_of_dice == 5
         assert result.dice_sides == 20
         assert result.bonus == -4
+
+    def test_6d6_gte5(self):
+        result = parse_input("6d6>=5")
+        assert result.number_of_dice == 6
+        assert result.dice_sides == 6
+        assert result.bonus == 0
+        assert result.result_mode == ResultModes.COUNT_SUCCESSES
+        assert result.comparison_type == ">="
+        assert result.comparison_value == 5
 
     def test_leading_space(self):
         result = parse_input(" 1d6+1")
