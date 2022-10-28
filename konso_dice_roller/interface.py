@@ -9,6 +9,7 @@ def roll_string_from_input(
     dice_sides_limit: int = 0,
     bonus_absolute_value_limit: int = 0,
 ) -> str:
+    """Will raise a ValueError on errors"""
     roll_info = parse_input(input_string)
     validate_roll_info(
         roll_info=roll_info,
@@ -26,6 +27,7 @@ def markdown_roll_string_from_input(
     dice_sides_limit: int = 0,
     bonus_absolute_value_limit: int = 0,
 ) -> str:
+    """Will raise a ValueError on errors"""
     roll_info = parse_input(input_string)
     validate_roll_info(
         roll_info=roll_info,
