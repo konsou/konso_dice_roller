@@ -1,16 +1,17 @@
 from typing import Union
 
-from .roll import Roll
+from .roll import Roll, ResultModes
 
 
 def roll_as_text(roll: Roll) -> str:
     bonus = getattr(roll, "bonus", 0)
     request_bonus, after_rolls_bonus = _bonus_strings_from_bonus(bonus)
+    operator_and_number = _operator_and_number_as_string(roll)
 
     individual_results_text = " ".join((str(r) for r in roll.individual_results))
 
     return (
-        f"{roll.number_of_dice}d{roll.dice_sides}{request_bonus}, "
+        f"{roll.number_of_dice}d{roll.dice_sides}{request_bonus}{operator_and_number}, "
         f"tulos: [{individual_results_text}]{after_rolls_bonus} "
         f"= {as_float_if_has_decimals(roll.result)}"
     )
@@ -48,6 +49,17 @@ def _bonus_strings_from_bonus(bonus: float) -> tuple[str, str]:
         request_bonus = ""
         after_rolls_bonus = ""
     return request_bonus, after_rolls_bonus
+
+
+def _operator_and_number_as_string(roll: Roll) -> str:
+    if (
+        roll.result_mode == ResultModes.COUNT_SUCCESSES
+        and roll.comparison_operator
+        and roll.comparison_value
+    ):
+        return f"{roll.comparison_operator}{roll.comparison_value}"
+    else:
+        return ""
 
 
 def as_float_if_has_decimals(number: Union[int, float]) -> Union[int, float]:
