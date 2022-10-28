@@ -2,7 +2,7 @@ import re
 
 from typing import Literal
 
-from .roll import RollInfo
+from .roll import ResultModes, RollInfo
 
 
 def parse_input(input_string: str) -> RollInfo:
@@ -10,10 +10,20 @@ def parse_input(input_string: str) -> RollInfo:
     # Strip all whitespace
     input_string = re.sub(r"\s+", "", input_string)
 
-    if has_comparison_operators(input_string):
-        pass
-        # extract operator
-        # extract number after operator
+    operator = get_comparison_operator(input_string)
+    if operator:
+        try:
+            input_string, after_operator = input_string.split(operator)
+        except ValueError:
+            raise ValueError("Virhe syötteen käsittelyssä")
+        try:
+            after_operator_number = float(after_operator)
+        except ValueError:
+            raise ValueError("Virhe syötteen käsittelyssä")
+    else:
+        after_operator_number = 0
+
+    result_mode = ResultModes.ADDITION if not operator else ResultModes.COUNT_SUCCESSES
 
     try:
         dice, bonus = _parse_bonus(input_string)
@@ -42,6 +52,9 @@ def parse_input(input_string: str) -> RollInfo:
         number_of_dice=number_of_dice,
         dice_sides=dice_sides,
         bonus=bonus,
+        result_mode=result_mode,
+        comparison_operator=operator,
+        comparison_value=after_operator_number,
     )
 
 
@@ -82,15 +95,10 @@ def _sign_in_string(input_string: str) -> Literal["+", "-", ""]:
     return ""
 
 
-def has_comparison_operators(input_string: str) -> bool:
-    valid_operators = ("<", ">", "=")
-    return any((o in input_string for o in valid_operators))
-
-
 def get_comparison_operator(
     input_string: str,
 ) -> Literal[">=", "<=", ">", "<", "=", ""]:
-    for operator in (">=", "<=", ">", "<", "="):
-        # TODO: implement
-        print(operator, input_string)
+    match = re.search("(>=|<=|<|>|=)", input_string)
+    if match:
+        return match.group(0)  # type: ignore
     return ""

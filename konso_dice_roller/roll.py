@@ -3,15 +3,18 @@ from random import randint
 from typing import NamedTuple
 
 
+class ResultModes(Enum):
+    ADDITION = 0
+    COUNT_SUCCESSES = 1
+
+
 class RollInfo(NamedTuple):
     number_of_dice: int
     dice_sides: int
     bonus: float = 0
-
-
-class ResultModes(Enum):
-    ADDITION = 0
-    COUNT_SUCCESSES = 1
+    result_mode: ResultModes = ResultModes.ADDITION
+    comparison_operator: str = ""
+    comparison_value: float = 0
 
 
 class Roll:

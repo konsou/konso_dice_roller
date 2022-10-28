@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from konso_dice_roller.parse import (
+    get_comparison_operator,
     parse_input,
     validate_roll_info,
 )
@@ -77,7 +78,7 @@ class TestParseInput(TestCase):
         assert result.dice_sides == 6
         assert result.bonus == 0
         assert result.result_mode == ResultModes.COUNT_SUCCESSES
-        assert result.comparison_type == ">="
+        assert result.comparison_operator == ">="
         assert result.comparison_value == 5
 
     def test_leading_space(self):
@@ -338,3 +339,95 @@ class TestValidateRollInfo:
         validate_roll_info(
             roll_info=mock_roll_info,
         )
+
+
+class TestGetComparisonOperator:
+    def test_gte_middle_of_string(self):
+        assert get_comparison_operator("moijee>=123") == ">="
+
+    def test_gte_start_of_string(self):
+        assert get_comparison_operator(">=123") == ">="
+
+    def test_gte_end_of_string(self):
+        assert get_comparison_operator("moijee>=") == ">="
+
+    def test_lte_middle_of_string(self):
+        assert get_comparison_operator("moijee<=123") == "<="
+
+    def test_lte_start_of_string(self):
+        assert get_comparison_operator("<=123") == "<="
+
+    def test_lte_end_of_string(self):
+        assert get_comparison_operator("moijee<=") == "<="
+
+    def test_gt_middle_of_string(self):
+        assert get_comparison_operator("moijee>123") == ">"
+
+    def test_gt_start_of_string(self):
+        assert get_comparison_operator(">123") == ">"
+
+    def test_gt_end_of_string(self):
+        assert get_comparison_operator("moijee>") == ">"
+
+    def test_lt_middle_of_string(self):
+        assert get_comparison_operator("moijee<123") == "<"
+
+    def test_lt_start_of_string(self):
+        assert get_comparison_operator("<123") == "<"
+
+    def test_lt_end_of_string(self):
+        assert get_comparison_operator("moijee<") == "<"
+
+    def test_equals_middle_of_string(self):
+        assert get_comparison_operator("moijee=123") == "="
+
+    def test_equals_start_of_string(self):
+        assert get_comparison_operator("=123") == "="
+
+    def test_equals_end_of_string(self):
+        assert get_comparison_operator("moijee=") == "="
+
+    def test_first_operator_selected_from_multiple_1(self):
+        assert get_comparison_operator("=<") == "="
+
+    def test_first_operator_selected_from_multiple_2(self):
+        assert get_comparison_operator("=>") == "="
+
+    def test_first_operator_selected_from_multiple_3(self):
+        assert get_comparison_operator("=<=") == "="
+
+    def test_first_operator_selected_from_multiple_4(self):
+        assert get_comparison_operator("=>=") == "="
+
+    def test_first_operator_selected_from_multiple_5(self):
+        assert get_comparison_operator("<>") == "<"
+
+    def test_first_operator_selected_from_multiple_6(self):
+        assert get_comparison_operator("><") == ">"
+
+    def test_first_operator_selected_from_multiple_7(self):
+        assert get_comparison_operator(">==") == ">="
+
+    def test_first_operator_selected_from_multiple_8(self):
+        assert get_comparison_operator(">=>") == ">="
+
+    def test_first_operator_selected_from_multiple_9(self):
+        assert get_comparison_operator(">=<") == ">="
+
+    def test_first_operator_selected_from_multiple_10(self):
+        assert get_comparison_operator("<==") == "<="
+
+    def test_first_operator_selected_from_multiple_11(self):
+        assert get_comparison_operator("<=<") == "<="
+
+    def test_first_operator_selected_from_multiple_12(self):
+        assert get_comparison_operator("<=>") == "<="
+
+    def test_no_operator(self):
+        assert get_comparison_operator("lsidauhcv7") == ""
+
+    def test_no_operator_but_plus(self):
+        assert get_comparison_operator("5d6+4") == ""
+
+    def test_no_operator_but_minus(self):
+        assert get_comparison_operator("5d6-4") == ""
