@@ -1,0 +1,4 @@
+#!/bin/sh
+# Copy this file to .git/hooks/ to enable running
+# unit tests automatically before each push
+pytest
