@@ -72,6 +72,10 @@ class TestParseInput(TestCase):
         assert result.dice_sides == 20
         assert result.bonus == -4
 
+    def test_default_mode_addition(self):
+        result = parse_input("3d4+5")
+        assert result.result_mode == ResultModes.ADDITION
+
     def test_6d6_gte5(self):
         result = parse_input("6d6>=5")
         assert result.number_of_dice == 6
@@ -80,6 +84,42 @@ class TestParseInput(TestCase):
         assert result.result_mode == ResultModes.COUNT_SUCCESSES
         assert result.comparison_operator == ">="
         assert result.comparison_value == 5
+
+    def test_6d6_lte7(self):
+        result = parse_input("6d6<=7")
+        assert result.number_of_dice == 6
+        assert result.dice_sides == 6
+        assert result.bonus == 0
+        assert result.result_mode == ResultModes.COUNT_SUCCESSES
+        assert result.comparison_operator == "<="
+        assert result.comparison_value == 7
+
+    def test_6d6_gt8(self):
+        result = parse_input("6d6>8")
+        assert result.number_of_dice == 6
+        assert result.dice_sides == 6
+        assert result.bonus == 0
+        assert result.result_mode == ResultModes.COUNT_SUCCESSES
+        assert result.comparison_operator == ">"
+        assert result.comparison_value == 8
+
+    def test_6d6_lt9(self):
+        result = parse_input("6d6<9")
+        assert result.number_of_dice == 6
+        assert result.dice_sides == 6
+        assert result.bonus == 0
+        assert result.result_mode == ResultModes.COUNT_SUCCESSES
+        assert result.comparison_operator == "<"
+        assert result.comparison_value == 9
+
+    def test_6d6_eq9(self):
+        result = parse_input("6d6=9")
+        assert result.number_of_dice == 6
+        assert result.dice_sides == 6
+        assert result.bonus == 0
+        assert result.result_mode == ResultModes.COUNT_SUCCESSES
+        assert result.comparison_operator == "="
+        assert result.comparison_value == 9
 
     def test_leading_space(self):
         result = parse_input(" 1d6+1")
