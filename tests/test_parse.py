@@ -72,6 +72,24 @@ class TestParseInput(TestCase):
         assert result.dice_sides == 20
         assert result.bonus == -4
 
+    def test_d8(self):
+        result = parse_input("d8")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 8
+        assert result.bonus == 0
+
+    def test_d8_plus_1(self):
+        result = parse_input("d8+1")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 8
+        assert result.bonus == 1
+
+    def test_d8_minus_2(self):
+        result = parse_input("d8-2")
+        assert result.number_of_dice == 1
+        assert result.dice_sides == 8
+        assert result.bonus == -2
+
     def test_default_mode_addition(self):
         result = parse_input("3d4+5")
         assert result.result_mode == ResultModes.ADDITION

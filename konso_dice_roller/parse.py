@@ -35,10 +35,13 @@ def parse_input(input_string: str) -> RollInfo:
     except ValueError:
         raise ValueError("Virhe syötteen käsittelyssä")
 
-    try:
-        number_of_dice = int(number_of_dice_text)
-    except ValueError:
-        raise ValueError("Virhe syötteen käsittelyssä")
+    if not number_of_dice_text:
+        number_of_dice = 1
+    else:
+        try:
+            number_of_dice = int(number_of_dice_text)
+        except ValueError:
+            raise ValueError("Virhe syötteen käsittelyssä")
 
     try:
         dice_sides = int(dice_sides_text)
